@@ -1,52 +1,35 @@
-# Prerequisites
-*.d
+#include <stdio.h>// NOTA: usato beautify
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+int main() {
+  int l_quadratica_array = 40;  // base del quadrato array2D
+  char array[l_quadratica_array][l_quadratica_array]; // creazione del qudrato array2D sull' informazione di spazi vuoti tramite procedura appresa
+  for (int i = 0; i < l_quadratica_array; i++) {
+    for (int j = 0; j < l_quadratica_array; j++) {
+      array[i][j] = ' ';
 
-# Linker output
-*.ilk
-*.map
-*.exp
+    }
+  }
+  array[0][19] = 'X'; // Correzione del quadrato vuoto alla cella colorata diversa dall'unica informazione fornita #XKQ
 
-# Precompiled Headers
-*.gch
-*.pch
+  for (int i = 1; i < l_quadratica_array; i++) { //#XKQ cominciando dal secondo, non potendo usare numeri minori di 0 
+    for (int j = 0; j < l_quadratica_array; j++) { //creazione dell'algoritmo secondo le condizioni fornite:
+      array[i][j] = ' '; //Caso default
+      if ((array[i - 1][j-1] == ' ' || array[i - 1][j] == ' ' || array[i - 1][j+1] == ' ') && (array[i - 1][j] == 'X' || array[i - 1][j+1] == 'X')) { //Tradotto usando l'algebra booleana tramite " "= !x, "X"=x
+        array[i][j] = 'X';
+      }
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+    }
+    if (i == 3 || i == 7 || i == 15 || i == 31 || i == 39) { // Casistica di stampa. NOTA: avendo richiesto il 40-esimo caso, il significato di 4,8,16,32 e 40 si traduce in x-1, siccome l'array arriva fino a 39
+      for (int i = 0; i < l_quadratica_array; i++) {
+        for (int j = 0; j < l_quadratica_array; j++) {
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+          printf("%c", array[i][j]);// stampa dell'elemento dell'array2D
+        }
+        printf("\n"); // nuova riga necessaria a separare le righe degli array 1D
+      }
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+    }
+  }
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+  return 0;
+}
